@@ -1,49 +1,44 @@
 class Solution {
     public int findUnsortedSubarray(int[] nums) {
-        int start = -1, end = -2; // Initialize start and end with invalid indices
+        int count1 = -1, count2 = -2;
 
-        // Find the leftmost index where the array is unsorted
         for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i] > nums[i + 1]) {
-                start = i;
+                count1 = i;
                 break;
             }
         }
 
-        // Array is already sorted, return 0
-        if (start == -1) {
+        if (count1 == -1) {
             return 0;
         }
 
-        // Find the rightmost index where the array is unsorted
-        for (int i = nums.length - 1; i > start; i--) {
+        for (int i = nums.length - 1; i > count1; i--) {
             if (nums[i] < nums[i - 1]) {
-                end = i;
+                count2 = i;
                 break;
             }
         }
 
-        // Find the minimum and maximum elements within the unsorted subarray
         int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
-        for (int i = start; i <= end; i++) {
+        for (int i = count1; i <= count2; i++) {
             min = Math.min(min, nums[i]);
             max = Math.max(max, nums[i]);
         }
 
-        // Extend the subarray to include elements that need to be sorted
-        for (int i = 0; i < start; i++) {
+        for (int i = 0; i < count1; i++) {
             if (nums[i] > min) {
-                start = i;
+                count1 = i;
                 break;
             }
         }
-        for (int i = nums.length - 1; i > end; i--) {
+        for (int i = nums.length - 1; i > count2; i--) {
             if (nums[i] < max) {
-                end = i;
+                count2 = i;
                 break;
             }
         }
 
-        return end - start + 1;
+        return count2 - count1 + 1;
     }
 }
