@@ -22,7 +22,7 @@ private:
 public:
     int diameterOfBinaryTree(TreeNode* root) {
         int maxdepth=0;
-        int ans=depth(maxdepth,root);
+        int result=depth(maxdepth,root);
         return maxdepth;
         
     }
